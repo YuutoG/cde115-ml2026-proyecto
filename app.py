@@ -67,7 +67,7 @@ def instanciar_modelo(nombre):
 def cargar_comite():
     comite = {}
     for nombre in ["resnet", "densenet", "efficientnet"]:
-        ruta = f"{nombre}_best_model.pth"
+        ruta = f"./models/{nombre}_best_model.pth"
         if os.path.exists(ruta):
             modelo, capa_cam = instanciar_modelo(nombre)
 
@@ -193,14 +193,12 @@ if archivo_subido is not None:
     st.subheader("Inspección Radiológica")
     col_img1, col_img2 = st.columns(2)
     with col_img1:
-        st.image(
-            imagen_cruda_pil, caption="Radiografía Original", use_container_width=True
-        )
+        st.image(imagen_cruda_pil, caption="Radiografía Original", width="stretch")
     with col_img2:
         st.image(
             imagen_clahe_pil,
             caption="Filtro de Ecualización (CLAHE)",
-            use_container_width=True,
+            width="stretch",
         )
 
     transform = transforms.Compose(
@@ -335,7 +333,7 @@ if archivo_subido is not None:
                             st.image(
                                 vis_consenso,
                                 caption=f"Mapa Unificado - {patologia}",
-                                use_container_width=True,
+                                width="stretch",
                             )
                         with c2:
                             st.info(
@@ -360,7 +358,7 @@ if archivo_subido is not None:
                             st.image(
                                 vis_lider,
                                 caption=f"Mapa Nativo de {lider_nombre.upper()} - {patologia}",
-                                use_container_width=True,
+                                width="stretch",
                             )
                         with c2:
                             st.warning(
@@ -381,7 +379,7 @@ if archivo_subido is not None:
                             peso = PESOS_OPTUNA[nombre]
 
                             with col:
-                                st.image(vis_individual, use_container_width=True)
+                                st.image(vis_individual, width="stretch")
                                 st.caption(
                                     f"**{nombre.upper()}**\n\nCerteza cruda: {confianza * 100:.1f}%\nPeso en el ensamble: {peso * 100:.1f}%"
                                 )
