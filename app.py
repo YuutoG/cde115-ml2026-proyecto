@@ -316,7 +316,7 @@ if archivo_subido is not None:
                         cam_consenso = np.zeros(
                             (IMAGE_SIZE[1], IMAGE_SIZE[0]), dtype=np.float32
                         )
-                        for nombre in COMITE.keys():
+                        for nombre in COMITE:
                             cam_consenso += mapas_base[nombre] * PESOS_OPTUNA[nombre]
 
                         if np.max(cam_consenso) > 0:
