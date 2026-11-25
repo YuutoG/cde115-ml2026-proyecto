@@ -1,0 +1,5 @@
+label,known,unknown,patients,status,auroc,auprc,sensitivity,specificity
+pneumonia,5412,0,4085,ok,0.652693,0.017004,0.821429,0.400112
+pleural_effusion,5412,0,4085,ok,0.740796,0.2869,0.85873,0.42179
+tuberculosis,0,5412,0,sin ambas clases conocidas,,,,
+edema,5412,0,4085,ok,0.784471,0.078099,0.625,0.794906

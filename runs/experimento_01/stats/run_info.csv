@@ -1,0 +1,33 @@
+key,value
+xrv.seed,42
+xrv.split_seed,7
+xrv.folds,4
+xrv.trials,6
+xrv.optimizers,"[""adamw"", ""sgd""]"
+xrv.epochs,50
+xrv.warmup_epochs,2
+xrv.patience,6
+xrv.batch_size,64
+xrv.bootstrap,1000
+xrv.amp,true
+xrv.cache,true
+xrv.workers,
+xrv.device,"""cuda"""
+xrv.label_masking,true
+xrv.versions,"{""torch"": ""2.14.1+cu130"", ""torchxrayvision"": ""1.5.7""}"
+imagenet.seed,42
+imagenet.split_seed,7
+imagenet.folds,4
+imagenet.trials,6
+imagenet.optimizers,"[""adamw"", ""sgd""]"
+imagenet.epochs,50
+imagenet.warmup_epochs,2
+imagenet.patience,6
+imagenet.batch_size,64
+imagenet.bootstrap,1000
+imagenet.amp,true
+imagenet.cache,true
+imagenet.workers,null
+imagenet.device,"""cuda"""
+imagenet.label_masking,true
+imagenet.versions,"{""torch"": ""2.14.1+cu130"", ""torchxrayvision"": ""1.5.7""}"

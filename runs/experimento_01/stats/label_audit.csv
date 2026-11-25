@@ -1,0 +1,13 @@
+split,label,positives,negatives,unknown
+development,pneumonia,445,716,29
+development,pleural_effusion,272,889,29
+development,tuberculosis,116,1045,29
+development,edema,100,1060,30
+calibration,pneumonia,109,180,8
+calibration,pleural_effusion,67,222,8
+calibration,tuberculosis,28,261,8
+calibration,edema,27,262,8
+test,pneumonia,138,226,8
+test,pleural_effusion,82,282,8
+test,tuberculosis,40,324,8
+test,edema,31,333,8

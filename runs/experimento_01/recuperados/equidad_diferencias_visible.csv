@@ -1,0 +1,57 @@
+attribute,group_a,group_b,label,metric,patients_a,patients_b,difference,low,high,n_valid,n_total,status
+sex,Femenino,Masculino,pneumonia,sensitivity,68,49,0.102424,-0.033778,0.252812,1000,1000,sin diferencia concluyente
+sex,Femenino,Masculino,pneumonia,specificity,94,88,-0.035655,-0.184827,0.108043,1000,1000,sin diferencia concluyente
+sex,Femenino,Masculino,pleural_effusion,sensitivity,23,35,0.044242,-0.085021,0.164508,1000,1000,sin diferencia concluyente
+sex,Femenino,Masculino,pleural_effusion,specificity,140,103,0.172529,0.04358,0.298976,1000,1000,diferencia observada; exploratoria
+sex,Femenino,Masculino,tuberculosis,sensitivity,7,18,,,,0,1000,evidencia insuficiente
+sex,Femenino,Masculino,tuberculosis,specificity,155,121,-0.099465,-0.216834,0.017503,1000,1000,sin diferencia concluyente
+sex,Femenino,Masculino,edema,sensitivity,12,15,-0.008333,-0.350011,0.263246,1000,1000,sin diferencia concluyente
+sex,Femenino,Masculino,edema,specificity,151,122,0.001732,-0.135682,0.136443,1000,1000,sin diferencia concluyente
+age_group,15–17,18–39,pneumonia,sensitivity,4,12,,,,0,1000,evidencia insuficiente
+age_group,15–17,18–39,pneumonia,specificity,2,49,,,,0,1000,evidencia insuficiente
+age_group,15–17,18–39,pleural_effusion,sensitivity,0,13,,,,0,1000,evidencia insuficiente
+age_group,15–17,18–39,pleural_effusion,specificity,6,49,,,,0,1000,evidencia insuficiente
+age_group,15–17,18–39,tuberculosis,sensitivity,0,12,,,,0,1000,evidencia insuficiente
+age_group,15–17,18–39,tuberculosis,specificity,6,50,,,,0,1000,evidencia insuficiente
+age_group,15–17,18–39,edema,sensitivity,2,2,,,,0,1000,evidencia insuficiente
+age_group,15–17,18–39,edema,specificity,4,59,,,,0,1000,evidencia insuficiente
+age_group,15–17,40–59,pneumonia,sensitivity,4,27,,,,0,1000,evidencia insuficiente
+age_group,15–17,40–59,pneumonia,specificity,2,63,,,,0,1000,evidencia insuficiente
+age_group,15–17,40–59,pleural_effusion,sensitivity,0,17,,,,0,1000,evidencia insuficiente
+age_group,15–17,40–59,pleural_effusion,specificity,6,74,,,,0,1000,evidencia insuficiente
+age_group,15–17,40–59,tuberculosis,sensitivity,0,9,,,,0,1000,evidencia insuficiente
+age_group,15–17,40–59,tuberculosis,specificity,6,82,,,,0,1000,evidencia insuficiente
+age_group,15–17,40–59,edema,sensitivity,2,10,,,,0,1000,evidencia insuficiente
+age_group,15–17,40–59,edema,specificity,4,81,,,,0,1000,evidencia insuficiente
+age_group,15–17,60+,pneumonia,sensitivity,4,74,,,,0,1000,evidencia insuficiente
+age_group,15–17,60+,pneumonia,specificity,2,68,,,,0,1000,evidencia insuficiente
+age_group,15–17,60+,pleural_effusion,sensitivity,0,28,,,,0,1000,evidencia insuficiente
+age_group,15–17,60+,pleural_effusion,specificity,6,114,,,,0,1000,evidencia insuficiente
+age_group,15–17,60+,tuberculosis,sensitivity,0,4,,,,0,1000,evidencia insuficiente
+age_group,15–17,60+,tuberculosis,specificity,6,138,,,,0,1000,evidencia insuficiente
+age_group,15–17,60+,edema,sensitivity,2,13,,,,0,1000,evidencia insuficiente
+age_group,15–17,60+,edema,specificity,4,129,,,,0,1000,evidencia insuficiente
+age_group,18–39,40–59,pneumonia,sensitivity,12,27,-0.037422,-0.351053,0.282154,1000,1000,sin diferencia concluyente
+age_group,18–39,40–59,pneumonia,specificity,49,63,0.033602,-0.152449,0.202747,1000,1000,sin diferencia concluyente
+age_group,18–39,40–59,pleural_effusion,sensitivity,13,17,0.136364,0.0,0.285924,1000,1000,sin diferencia concluyente
+age_group,18–39,40–59,pleural_effusion,specificity,49,74,0.209559,-0.002325,0.44138,1000,1000,sin diferencia concluyente
+age_group,18–39,40–59,tuberculosis,sensitivity,12,9,,,,0,1000,evidencia insuficiente
+age_group,18–39,40–59,tuberculosis,specificity,50,82,-0.273729,-0.437425,-0.102567,1000,1000,diferencia observada; exploratoria
+age_group,18–39,40–59,edema,sensitivity,2,10,,,,0,1000,evidencia insuficiente
+age_group,18–39,40–59,edema,specificity,59,81,0.071033,-0.071431,0.222634,1000,1000,sin diferencia concluyente
+age_group,18–39,60+,pneumonia,sensitivity,12,74,-0.2595,-0.521858,-0.007137,1000,1000,diferencia observada; exploratoria
+age_group,18–39,60+,pneumonia,specificity,49,68,0.208863,0.028046,0.387051,1000,1000,diferencia observada; exploratoria
+age_group,18–39,60+,pleural_effusion,sensitivity,13,28,0.125,0.030303,0.238095,1000,1000,diferencia observada; exploratoria
+age_group,18–39,60+,pleural_effusion,specificity,49,114,0.1705,-0.027943,0.380691,1000,1000,sin diferencia concluyente
+age_group,18–39,60+,tuberculosis,sensitivity,12,4,,,,0,1000,evidencia insuficiente
+age_group,18–39,60+,tuberculosis,specificity,50,138,-0.412936,-0.56461,-0.265804,1000,1000,diferencia observada; exploratoria
+age_group,18–39,60+,edema,sensitivity,2,13,,,,0,1000,evidencia insuficiente
+age_group,18–39,60+,edema,specificity,59,129,0.343018,0.202408,0.472037,1000,1000,diferencia observada; exploratoria
+age_group,40–59,60+,pneumonia,sensitivity,27,74,-0.222077,-0.428105,-0.040486,1000,1000,diferencia observada; exploratoria
+age_group,40–59,60+,pneumonia,specificity,63,68,0.175261,0.003072,0.353541,1000,1000,diferencia observada; exploratoria
+age_group,40–59,60+,pleural_effusion,sensitivity,17,28,-0.011364,-0.186751,0.144492,1000,1000,sin diferencia concluyente
+age_group,40–59,60+,pleural_effusion,specificity,74,114,-0.039059,-0.184839,0.102619,1000,1000,sin diferencia concluyente
+age_group,40–59,60+,tuberculosis,sensitivity,9,4,,,,0,1000,evidencia insuficiente
+age_group,40–59,60+,tuberculosis,specificity,82,138,-0.139207,-0.26493,-0.012194,1000,1000,diferencia observada; exploratoria
+age_group,40–59,60+,edema,sensitivity,10,13,0.025,-0.272727,0.333333,1000,1000,sin diferencia concluyente
+age_group,40–59,60+,edema,specificity,81,129,0.271985,0.122717,0.416678,1000,1000,diferencia observada; exploratoria
