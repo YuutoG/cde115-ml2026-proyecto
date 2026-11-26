@@ -4,12 +4,18 @@ import hashlib
 import json
 import os
 import sys
+from io import BytesIO
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
+import pydicom
 import streamlit as st
 import torch
+from PIL import Image
+from pydicom.errors import InvalidDicomError
+from pydicom.pixels import apply_modality_lut, apply_voi_lut
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
 from proyecto.data import LABELS
@@ -24,6 +30,54 @@ LABEL_NAMES = {
     "edema": "Edema",
 }
 FAMILY_NAMES = {"imagenet": "ImageNet", "xrv": "TorchXRayVision"}
+
+
+def monochrome_png(uploaded):
+    source = BytesIO(uploaded.getvalue())
+    extension = Path(uploaded.name).suffix.lower()
+    if extension in (".dcm", ".dicom"):
+        dataset = pydicom.dcmread(source)
+        if int(getattr(dataset, "NumberOfFrames", 1)) != 1:
+            raise ValueError("Se requiere un DICOM de un solo fotograma")
+        rows, columns = int(dataset.Rows), int(dataset.Columns)
+        if rows <= 0 or columns <= 0 or rows * columns > 30_000_000:
+            raise ValueError("Dimensiones DICOM inválidas o superiores a 30 millones de píxeles")
+        photometric = dataset.get("PhotometricInterpretation")
+        samples = int(getattr(dataset, "SamplesPerPixel", 1))
+        if samples == 1 and photometric in ("MONOCHROME1", "MONOCHROME2"):
+            pixels = np.asarray(
+                apply_voi_lut(apply_modality_lut(dataset.pixel_array, dataset), dataset),
+                dtype=np.float64,
+            )
+            if pixels.shape != (rows, columns) or not np.isfinite(pixels).all():
+                raise ValueError("El DICOM contiene píxeles inválidos")
+            minimum, maximum = pixels.min(), pixels.max()
+            if maximum > minimum:
+                pixels = (pixels - minimum) / (maximum - minimum) * 255
+            else:
+                pixels = np.zeros_like(pixels)
+            if photometric == "MONOCHROME1":
+                pixels = 255 - pixels
+            converted = Image.fromarray(np.rint(pixels).astype(np.uint8))
+        elif samples == 3 and photometric in ("RGB", "YBR_FULL", "YBR_FULL_422"):
+            pixels = dataset.pixel_array
+            if pixels.shape != (rows, columns, 3) or pixels.dtype != np.uint8:
+                raise ValueError("Solo se admiten DICOM a color de 8 bits por canal")
+            converted = Image.fromarray(pixels).convert("L")
+        else:
+            raise ValueError("Interpretación de color DICOM no admitida")
+    else:
+        with Image.open(source) as original:
+            if original.format not in ("PNG", "JPEG"):
+                raise ValueError("Solo se aceptan archivos DICOM, PNG o JPG")
+            if original.width * original.height > 30_000_000:
+                raise ValueError("La imagen supera el límite de 30 millones de píxeles")
+            if original.format == "PNG" and original.mode in ("L", "I", "I;16", "I;16B", "I;16L"):
+                return uploaded.getvalue()
+            converted = original.convert("L")
+    output = BytesIO()
+    converted.save(output, format="PNG")
+    return output.getvalue()
 
 
 @st.cache_resource(max_entries=1, scope="session", show_spinner=False)
@@ -218,7 +272,7 @@ st.markdown("""
 st.markdown("""
 <div class="demo-hero">
     <div class="eyebrow">🩻 Investigación · Prototipo demostrativo</div>
-    <h1>Análisis exploratorio de radiografías</h1>
+    <h1>ANÁLISIS AUTOMATIZADO DE IMÁGENES MÉDICAS PARA LA DETECCIÓN DE PATOLOGÍAS RESPIRATORIAS MEDIANTE DEEP LEARNING.</h1>
     <p>🔬 Dos familias de modelos y mapas exploratorios para investigación.</p>
 </div>
 """, unsafe_allow_html=True)
@@ -236,9 +290,13 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 image = image_hash = background = None
 upload_column, preview_column = st.columns([1.5, 1], vertical_alignment="center")
 with upload_column:
-    uploaded = st.file_uploader("🩻 Radiografía PNG monocromática", type=["png"])
+    uploaded = st.file_uploader("🩻 Radiografía DICOM, PNG o JPG",
+                                type=["dcm", "dicom", "png", "jpg", "jpeg"])
     st.caption("Máximo: 30 MB y 30 millones de píxeles. Procesada en memoria; "
                "no se guarda intencionadamente.")
+    st.caption("DICOM: un solo fotograma, monocromático o RGB/YBR de 8 bits por canal. "
+               "En imágenes monocromáticas se aplican las transformaciones de intensidad "
+               "disponibles y se ajusta el rango a 8 bits.")
     st.caption("PNG de más de 8 bits: se usa 65535 como máximo; no interprete la salida "
                "si el rango efectivo es distinto.")
     if uploaded is not None:
@@ -246,12 +304,16 @@ with upload_column:
             if uploaded.size > 30 * 1024 * 1024:
                 raise ValueError("La imagen supera el límite de 30 MB")
             image_hash = hashlib.sha256(uploaded.getvalue()).hexdigest()
-            image = read_image(uploaded)
+            png = monochrome_png(uploaded)
+            image = read_image(BytesIO(png))
             background = display_background(image)
+            st.download_button("Descargar PNG monocromático", png,
+                               file_name=f"{Path(uploaded.name).stem}.png", mime="image/png")
             if image.dtype.itemsize > 1:
                 st.warning("Imagen de más de 8 bits: se usará 65535 como máximo. "
                            "No interprete la salida si el rango efectivo es distinto.")
-        except (OSError, ValueError, RuntimeError) as error:
+        except (OSError, ValueError, RuntimeError, AttributeError, InvalidDicomError,
+                Image.DecompressionBombError) as error:
             for family in FAMILY_NAMES:
                 st.session_state.pop(f"result_{family}", None)
             st.error(f"No se pudo procesar la radiografía: {error}")
