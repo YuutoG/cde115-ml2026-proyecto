@@ -29,7 +29,7 @@ Se requiere Python 3.10 o superior. Desde la raíz del proyecto:
 python -m venv .venv
 source .venv/bin/activate  # Windows: .venv\Scripts\activate
 python -m pip install --upgrade pip
-python -m pip install torch torchvision torchxrayvision grad-cam optuna streamlit pydicom matplotlib numpy pandas scipy scikit-learn pillow seaborn jupyterlab
+python -m pip install -r requirements.txt
 ```
 
 Para GPU, instale la variante de PyTorch compatible con su versión de CUDA desde el selector oficial de PyTorch.
